@@ -1,12 +1,16 @@
 package com.xiaoxi.pizza.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,13 +24,34 @@ public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
+
+  @NotNull
+  @Size(min = 1, max = 100)
   private String firstname;
+
+  @NotNull
+  @Size(min = 1, max = 100)
   private String lastname;
+
+  @Email
+  @Column(unique = true)
   private String email;
+
+  @NotNull
+  @Size(min = 8, max = 20)
   private String password;
 
   @Enumerated(EnumType.STRING)
+  @NotNull
   private Role role;
+
+  private Date createdAt;
+
+  @PrePersist
+  void placedAt() {
+    createdAt = new Date();
+    email = email.toLowerCase();
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
