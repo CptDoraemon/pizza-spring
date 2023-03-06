@@ -1,14 +1,13 @@
 package com.xiaoxi.pizza.config;
 
-import com.xiaoxi.pizza.user.User;
-import com.xiaoxi.pizza.user.UserRepository;
+import com.xiaoxi.pizza.entity.User;
+import com.xiaoxi.pizza.entity.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 

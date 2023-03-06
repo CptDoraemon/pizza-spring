@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.auth.dto;
+package com.xiaoxi.pizza.controller.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponse {
-  private String status;
+public class LoginRequest {
+  private String email;
+  private String password;
 }

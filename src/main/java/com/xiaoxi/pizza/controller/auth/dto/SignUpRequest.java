@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.auth.dto;
+package com.xiaoxi.pizza.controller.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +22,7 @@ public class SignUpRequest {
   private String lastname;
 
   @Email
+  @NotNull
   private String email;
 
   @NotNull

@@ -1,7 +1,7 @@
 package com.xiaoxi.pizza.config;
 
-import com.xiaoxi.pizza.user.User;
-import com.xiaoxi.pizza.user.UserRepository;
+import com.xiaoxi.pizza.entity.User;
+import com.xiaoxi.pizza.entity.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

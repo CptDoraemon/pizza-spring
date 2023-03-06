@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.user;
+package com.xiaoxi.pizza.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

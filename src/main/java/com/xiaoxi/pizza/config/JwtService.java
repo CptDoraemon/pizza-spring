@@ -1,13 +1,11 @@
 package com.xiaoxi.pizza.config;
 
-import com.xiaoxi.pizza.user.User;
-import com.xiaoxi.pizza.user.UserRepository;
+import com.xiaoxi.pizza.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;

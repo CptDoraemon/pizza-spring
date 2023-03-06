@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.user;
+package com.xiaoxi.pizza.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -34,11 +34,11 @@ public class User implements UserDetails {
   private String lastname;
 
   @Email
+  @NotNull
   @Column(unique = true)
   private String email;
 
   @NotNull
-  @Size(min = 8, max = 20)
   private String password;
 
   @Enumerated(EnumType.STRING)

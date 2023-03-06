@@ -1,19 +1,15 @@
-package com.xiaoxi.pizza.auth;
+package com.xiaoxi.pizza.controller.auth;
 
-import com.xiaoxi.pizza.auth.dto.*;
 import com.xiaoxi.pizza.config.JwtService;
-import com.xiaoxi.pizza.user.Role;
-import com.xiaoxi.pizza.user.User;
-import com.xiaoxi.pizza.user.UserRepository;
+import com.xiaoxi.pizza.controller.auth.dto.SignUpRequest;
+import com.xiaoxi.pizza.entity.Role;
+import com.xiaoxi.pizza.entity.User;
+import com.xiaoxi.pizza.entity.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,43 +32,23 @@ public class AuthenticationController {
   public ResponseEntity<String> signUp(
       @Valid @RequestBody SignUpRequest request
   ) {
-    try {
-      String encodedPassword = passwordEncoder.encode(request.getPassword());
+    String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-      User user = User.builder()
-          .email(request.getEmail())
-          .firstname(request.getFirstname())
-          .lastname(request.getLastname())
-          .password(encodedPassword)
-          .role(Role.USER)
-          .build();
-      userRepo.save(user);
-      return ResponseEntity.ok().build();
-    } catch (Exception e) {
-      System.out.println(e);
-      return ResponseEntity.badRequest().build();
-    }
-    // TODO
+    User user = User.builder()
+        .email(request.getEmail())
+        .firstname(request.getFirstname())
+        .lastname(request.getLastname())
+        .password(encodedPassword)
+        .role(Role.USER)
+        .build();
+    userRepo.save(user);
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping("/hello")
   public ResponseEntity<String> hello() {
     System.out.println("hello");
     return ResponseEntity.ok("ok");
-  }
-
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public Map<String, String> handleValidationExceptions(
-      MethodArgumentNotValidException ex) {
-    Map<String, String> errors = new HashMap<>();
-    ex.getBindingResult().getAllErrors().forEach((error) -> {
-      String fieldName = ((FieldError) error).getField();
-      String errorMessage = error.getDefaultMessage();
-      errors.put(fieldName, errorMessage);
-    });
-    System.out.println(errors);
-    return errors;
   }
 //
 //  @PostMapping("/login")
