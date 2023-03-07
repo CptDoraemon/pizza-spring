@@ -4,7 +4,6 @@ import com.xiaoxi.pizza.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-  private final String SECRET_KEY = "FAKE_SECRET_KEY";
+  private final String SECRET_KEY = "FAKE_SECRET_KEY_gfdksjgbdgsdfgbdfmsgnbsdf5648mgn";
   private Key SIGNING_KEY = null;
 
   public String extractUsername(String token) {
@@ -71,8 +70,7 @@ public class JwtService {
 
   private Key getSigningKey() {
     if (SIGNING_KEY == null) {
-      byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-      SIGNING_KEY = Keys.hmacShaKeyFor(keyBytes);
+      SIGNING_KEY = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
     return SIGNING_KEY;

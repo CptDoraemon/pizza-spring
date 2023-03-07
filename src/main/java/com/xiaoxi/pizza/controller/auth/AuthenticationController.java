@@ -1,18 +1,21 @@
 package com.xiaoxi.pizza.controller.auth;
 
 import com.xiaoxi.pizza.config.JwtService;
+import com.xiaoxi.pizza.controller.auth.dto.LoginRequest;
 import com.xiaoxi.pizza.controller.auth.dto.SignUpRequest;
-import com.xiaoxi.pizza.entity.Role;
+import com.xiaoxi.pizza.controller.auth.dto.UserInfoResponse;
+import com.xiaoxi.pizza.controller.auth.exceptions.EmailRegisteredException;
+import com.xiaoxi.pizza.controller.auth.responses.Response;
 import com.xiaoxi.pizza.entity.User;
 import com.xiaoxi.pizza.entity.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,28 +24,30 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationController {
 
   private final UserRepository userRepo;
   private final AuthenticationManager authenticationManager;
   private final JwtService jwtService;
+  private final AuthenticationService authService;
   private final PasswordEncoder passwordEncoder;
 
   @PostMapping("/signUp")
-  public ResponseEntity<String> signUp(
+  public ResponseEntity<Response<Object>> signUp(
       @Valid @RequestBody SignUpRequest request
   ) {
-    String encodedPassword = passwordEncoder.encode(request.getPassword());
-
-    User user = User.builder()
-        .email(request.getEmail())
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
-        .password(encodedPassword)
-        .role(Role.USER)
-        .build();
-    userRepo.save(user);
-    return ResponseEntity.ok().build();
+    try {
+      authService.createUser(
+          request.getEmail(),
+          request.getFirstname(),
+          request.getLastname(),
+          request.getPassword()
+      );
+      return new ResponseEntity<>(new Response<>("User registered", null), HttpStatus.CREATED);
+    } catch (EmailRegisteredException e) {
+      return new ResponseEntity<>(new Response<>("Email Registered", null), HttpStatus.BAD_REQUEST);
+    }
   }
 
   @GetMapping("/hello")
@@ -50,23 +55,39 @@ public class AuthenticationController {
     System.out.println("hello");
     return ResponseEntity.ok("ok");
   }
-//
-//  @PostMapping("/login")
-//  public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest request) {
-//    try {
-//      authenticationManager.authenticate(
-//          new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-//      );
-//      String token = jwtService.generateToken(request.)
-//    } catch (AuthenticationException) {
-//
-//    }
-//  }
-//
-//  @GetMapping("/userinfo")
-//  public ResponseEntity<UserInfoResponse> authenticate(Authentication authentication) {
-//    // TODO
-//    User user = (User) authentication.getPrincipal();
-//  }
+
+  @PostMapping("/login")
+  public ResponseEntity<Response<Object>> authenticate(@RequestBody LoginRequest request) {
+    try {
+      Authentication authentication = authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+      );
+      User user = (User) authentication.getPrincipal();
+      String token = jwtService.generateToken(user);
+      Map<String, String> payload = new HashMap<>();
+      payload.put("token", token);
+
+      return new ResponseEntity<>(new Response<>("Success", payload), HttpStatus.OK);
+    } catch (DisabledException e) {
+      return new ResponseEntity<>(new Response<>("User Disabled", null), HttpStatus.FORBIDDEN);
+    } catch (LockedException e) {
+      return new ResponseEntity<>(new Response<>("User Locked", null), HttpStatus.FORBIDDEN);
+    } catch (BadCredentialsException e) {
+      return new ResponseEntity<>(new Response<>("Bad Credential", null), HttpStatus.FORBIDDEN);
+    }
+  }
+
+  @GetMapping("/userinfo")
+  public ResponseEntity<Response<UserInfoResponse>> authenticate(Authentication authentication) {
+    log.warn("userinfo");
+    User user = (User) authentication.getPrincipal();
+    UserInfoResponse res = UserInfoResponse.builder()
+        .email(user.getEmail())
+        .firstname(user.getFirstname())
+        .lastname(user.getLastname())
+        .role(user.getRole())
+        .build();
+    return new ResponseEntity<>(new Response<>("message", res), HttpStatus.OK);
+  }
 
 }

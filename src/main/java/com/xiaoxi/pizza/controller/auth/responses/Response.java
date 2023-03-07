@@ -1,5 +1,6 @@
-package com.xiaoxi.pizza.controller;
+package com.xiaoxi.pizza.controller.auth.responses;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -7,8 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class SuccessResponse<T> {
-  private final String status = "ok";
+public class Response<T> {
   private final String message;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   private final T payload;
 }
