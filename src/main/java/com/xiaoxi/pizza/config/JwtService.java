@@ -1,6 +1,6 @@
 package com.xiaoxi.pizza.config;
 
-import com.xiaoxi.pizza.entity.User;
+import com.xiaoxi.pizza.entity.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

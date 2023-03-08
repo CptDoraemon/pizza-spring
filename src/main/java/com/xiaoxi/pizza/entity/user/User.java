@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.entity;
+package com.xiaoxi.pizza.entity.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -23,7 +23,7 @@ public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
+  private Long id;
 
   @NotNull
   @Size(min = 1, max = 100)

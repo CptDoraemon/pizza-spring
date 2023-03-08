@@ -1,9 +1,9 @@
-package com.xiaoxi.pizza.controller.auth;
+package com.xiaoxi.pizza.config.auth;
 
-import com.xiaoxi.pizza.controller.auth.exceptions.EmailRegisteredException;
-import com.xiaoxi.pizza.entity.Role;
-import com.xiaoxi.pizza.entity.User;
-import com.xiaoxi.pizza.entity.UserRepository;
+import com.xiaoxi.pizza.config.auth.exceptions.EmailRegisteredException;
+import com.xiaoxi.pizza.entity.user.Role;
+import com.xiaoxi.pizza.entity.user.User;
+import com.xiaoxi.pizza.entity.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +21,12 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
 
   @Transactional
-  public User createUser(
+  private User addUser(
       String email,
       String firstname,
       String lastname,
-      String password
+      String password,
+      Role role
   ) throws EmailRegisteredException {
     Optional<User> existingUser = userRepo.findByEmail(email.toLowerCase());
     if (existingUser.isPresent()) {
@@ -38,9 +39,27 @@ public class AuthenticationService {
         .firstname(firstname)
         .lastname(lastname)
         .password(encodedPassword)
-        .role(Role.USER)
+        .role(role)
         .build();
     userRepo.save(user);
     return user;
+  }
+
+  public User createUser(
+      String email,
+      String firstname,
+      String lastname,
+      String password
+  ) throws EmailRegisteredException {
+    return addUser(email, firstname, lastname, password, Role.USER);
+  }
+
+  public User createAdmin(
+      String email,
+      String firstname,
+      String lastname,
+      String password
+  ) throws EmailRegisteredException {
+    return addUser(email, firstname, lastname, password, Role.ADMIN);
   }
 }

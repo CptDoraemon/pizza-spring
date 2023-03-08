@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.controller.auth.exceptions;
+package com.xiaoxi.pizza.config.auth.exceptions;
 
 public class EmailRegisteredException extends RuntimeException {
   public EmailRegisteredException(String email) {

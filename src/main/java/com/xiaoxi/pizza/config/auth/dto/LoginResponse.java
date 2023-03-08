@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.controller.auth.dto;
+package com.xiaoxi.pizza.config.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

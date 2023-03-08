@@ -1,5 +1,6 @@
-package com.xiaoxi.pizza.controller.auth.dto;
+package com.xiaoxi.pizza.config.auth.dto;
 
+import com.xiaoxi.pizza.entity.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class UserInfoResponse {
   private String email;
-  private String password;
+  private String firstname;
+  private String lastname;
+  private Role role;
 }

@@ -1,13 +1,13 @@
-package com.xiaoxi.pizza.controller.auth;
+package com.xiaoxi.pizza.config.auth;
 
 import com.xiaoxi.pizza.config.JwtService;
-import com.xiaoxi.pizza.controller.auth.dto.LoginRequest;
-import com.xiaoxi.pizza.controller.auth.dto.SignUpRequest;
-import com.xiaoxi.pizza.controller.auth.dto.UserInfoResponse;
-import com.xiaoxi.pizza.controller.auth.exceptions.EmailRegisteredException;
-import com.xiaoxi.pizza.controller.auth.responses.Response;
-import com.xiaoxi.pizza.entity.User;
-import com.xiaoxi.pizza.entity.UserRepository;
+import com.xiaoxi.pizza.config.auth.dto.LoginRequest;
+import com.xiaoxi.pizza.config.auth.dto.SignUpRequest;
+import com.xiaoxi.pizza.config.auth.dto.UserInfoResponse;
+import com.xiaoxi.pizza.config.auth.exceptions.EmailRegisteredException;
+import com.xiaoxi.pizza.config.auth.responses.Response;
+import com.xiaoxi.pizza.entity.user.User;
+import com.xiaoxi.pizza.entity.user.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,9 +51,8 @@ public class AuthenticationController {
   }
 
   @GetMapping("/hello")
-  public ResponseEntity<String> hello() {
-    System.out.println("hello");
-    return ResponseEntity.ok("ok");
+  public ResponseEntity<Response<Object>> hello() {
+    return new ResponseEntity<>(new Response<>("ok", null), HttpStatus.OK);
   }
 
   @PostMapping("/login")

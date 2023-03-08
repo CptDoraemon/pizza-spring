@@ -1,6 +1,6 @@
 package com.xiaoxi.pizza.controller;
 
-import com.xiaoxi.pizza.controller.auth.responses.Response;
+import com.xiaoxi.pizza.config.auth.responses.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

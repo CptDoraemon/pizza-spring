@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.controller.auth.dto;
+package com.xiaoxi.pizza.config.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

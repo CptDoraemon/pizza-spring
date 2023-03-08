@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.controller.auth.responses;
+package com.xiaoxi.pizza.config.auth.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

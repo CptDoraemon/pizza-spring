@@ -1,7 +1,7 @@
 package com.xiaoxi.pizza.config;
 
-import com.xiaoxi.pizza.entity.User;
-import com.xiaoxi.pizza.entity.UserRepository;
+import com.xiaoxi.pizza.entity.user.User;
+import com.xiaoxi.pizza.entity.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
