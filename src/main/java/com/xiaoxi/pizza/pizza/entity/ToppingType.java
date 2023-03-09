@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.entity.pizza;
+package com.xiaoxi.pizza.pizza.entity;
 
 public enum ToppingType {
   CHEESE, MEAT, VEGETABLE

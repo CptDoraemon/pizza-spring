@@ -1,9 +1,6 @@
-package com.xiaoxi.pizza.entity.pizza;
+package com.xiaoxi.pizza.pizza.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,11 +15,14 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Dough {
-
+public class Topping {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
+
+  @Enumerated(EnumType.STRING)
+  @NotNull
+  private ToppingType type;
 
   @NotNull
   @Size(min = 1, max = 100)
@@ -32,8 +32,8 @@ public class Dough {
   private BigDecimal price;
 
   @NotNull
-  private Boolean isActive;
+  private Integer inventory;
 
   @NotNull
-  private Integer inventory;
+  private Boolean isActive;
 }

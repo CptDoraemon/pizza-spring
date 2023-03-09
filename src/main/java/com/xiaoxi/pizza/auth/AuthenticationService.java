@@ -1,9 +1,9 @@
-package com.xiaoxi.pizza.config.auth;
+package com.xiaoxi.pizza.auth;
 
-import com.xiaoxi.pizza.config.auth.exceptions.EmailRegisteredException;
-import com.xiaoxi.pizza.entity.user.Role;
-import com.xiaoxi.pizza.entity.user.User;
-import com.xiaoxi.pizza.entity.user.UserRepository;
+import com.xiaoxi.pizza.auth.entity.UserRepository;
+import com.xiaoxi.pizza.auth.exceptions.EmailRegisteredException;
+import com.xiaoxi.pizza.auth.entity.Role;
+import com.xiaoxi.pizza.auth.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

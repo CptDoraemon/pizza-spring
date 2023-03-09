@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.entity.user;
+package com.xiaoxi.pizza.auth.entity;
 
 public enum Role {
   ADMIN,

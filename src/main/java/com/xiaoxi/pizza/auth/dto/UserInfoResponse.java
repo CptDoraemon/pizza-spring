@@ -1,6 +1,6 @@
-package com.xiaoxi.pizza.config.auth.dto;
+package com.xiaoxi.pizza.auth.dto;
 
-import com.xiaoxi.pizza.entity.user.Role;
+import com.xiaoxi.pizza.auth.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

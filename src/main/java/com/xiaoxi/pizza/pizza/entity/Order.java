@@ -1,6 +1,6 @@
-package com.xiaoxi.pizza.entity.pizza;
+package com.xiaoxi.pizza.pizza.entity;
 
-import com.xiaoxi.pizza.entity.user.User;
+import com.xiaoxi.pizza.auth.entity.User;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;

@@ -1,4 +1,4 @@
-package com.xiaoxi.pizza.entity.user;
+package com.xiaoxi.pizza.auth.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

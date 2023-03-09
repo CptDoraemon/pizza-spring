@@ -1,13 +1,13 @@
-package com.xiaoxi.pizza.config.auth;
+package com.xiaoxi.pizza.auth;
 
+import com.xiaoxi.pizza.auth.entity.UserRepository;
 import com.xiaoxi.pizza.config.JwtService;
-import com.xiaoxi.pizza.config.auth.dto.LoginRequest;
-import com.xiaoxi.pizza.config.auth.dto.SignUpRequest;
-import com.xiaoxi.pizza.config.auth.dto.UserInfoResponse;
-import com.xiaoxi.pizza.config.auth.exceptions.EmailRegisteredException;
-import com.xiaoxi.pizza.config.auth.responses.Response;
-import com.xiaoxi.pizza.entity.user.User;
-import com.xiaoxi.pizza.entity.user.UserRepository;
+import com.xiaoxi.pizza.auth.dto.LoginRequest;
+import com.xiaoxi.pizza.auth.dto.SignUpRequest;
+import com.xiaoxi.pizza.auth.dto.UserInfoResponse;
+import com.xiaoxi.pizza.auth.exceptions.EmailRegisteredException;
+import com.xiaoxi.pizza.auth.responses.Response;
+import com.xiaoxi.pizza.auth.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

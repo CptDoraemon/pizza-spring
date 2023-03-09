@@ -1,7 +1,7 @@
 package com.xiaoxi.pizza.config;
 
-import com.xiaoxi.pizza.config.auth.AuthenticationService;
-import com.xiaoxi.pizza.entity.pizza.*;
+import com.xiaoxi.pizza.auth.AuthenticationService;
+import com.xiaoxi.pizza.pizza.entity.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -24,7 +24,8 @@ public class DataLoader implements ApplicationRunner {
   public void run(ApplicationArguments args) {
     try {
       // account
-      authService.createAdmin("test@test.com", "Xiaoxi", "Yu", "12345678");
+      authService.createAdmin("admin@test.com", "admin", "admin", "12345678");
+      authService.createUser("user@test.com", "user", "user", "12345678");
 
       // dough
       doughRepo.save(
@@ -60,6 +61,15 @@ public class DataLoader implements ApplicationRunner {
               .name("Large 14″ Stuffed Crust Round")
               .price(new BigDecimal("4.49"))
               .isActive(true)
+              .inventory(10)
+              .build()
+      );
+      doughRepo.save(
+          Dough
+              .builder()
+              .name("Special Large 14″ Stuffed Crust Square")
+              .price(new BigDecimal("6.49"))
+              .isActive(false)
               .inventory(10)
               .build()
       );
